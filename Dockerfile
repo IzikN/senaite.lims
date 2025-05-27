@@ -29,7 +29,7 @@ RUN python3 -m venv venv
 ENV PATH="/app/venv/bin:$PATH"
 
 # Copy buildout config and requirements
-COPY requirements.rxt buildout.cfg ./
+COPY requirements.txt buildout.cfg ./
 
 # Install pip and required packages
 RUN pip install --upgrade pip \
