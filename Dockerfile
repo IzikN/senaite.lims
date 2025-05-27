@@ -27,7 +27,7 @@ ENV PATH="/app/venv/bin:$PATH"
 COPY requirements.txt buildout.cfg ./
 
 # Install buildout and Python dependencies
-RUN pip install --upgrade pip setuptools<58.0.0 \
+RUN pip install --upgrade pip "setuptools<58.0.0" \
     && pip install -r requirements.txt \
     && pip install zc.buildout \
     && buildout bootstrap \
