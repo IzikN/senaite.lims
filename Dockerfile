@@ -12,4 +12,4 @@ RUN python -m venv venv && \
     . venv/bin/activate && \
     pip install -U pip 'setuptools<70' zc.buildout && \
     buildout bootstrap && \
-    buildout no
+    buildout
