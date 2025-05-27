@@ -1,9 +1,11 @@
 services:
   - type: web
     name: senaite-lims
-    env: python
+    env: docker # important: not "python"
     plan: free
-    buildCommand: ./build.sh
-    startCommand: ./bin/instance fg
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
     healthCheckPath: /
     healthCheckTimeoutSeconds: 120
+    ports:
+      - 8080
