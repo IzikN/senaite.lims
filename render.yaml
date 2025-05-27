@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: senaite-lims
+    env: python
+    plan: free  # Upgrade to paid for persistent storage
+    buildCommand: |
+      python3 -m venv venv
+      ./venv/bin/pip install -r requirements.txt
+      ./venv/bin/buildout
+    startCommand: ./venv/bin/instance fg
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHON_VERSION
+        value: 3.8  # Compatible with senaite.lims
