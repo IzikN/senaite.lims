@@ -28,27 +28,20 @@ RUN apt-get update && apt-get install -y \
 RUN python3 -m venv venv
 ENV PATH="/app/venv/bin:$PATH"
 
-# Upgrade pip and install setuptools <58 for compatibility
-RUN pip install --upgrade pip "setuptools<58" wheel
+# Copy buildout config and requirements
+COPY requirements.rxt buildout.cfg ./
 
-# Copy buildout files
-COPY buildout.cfg .
-COPY requirements.txt .
-
-# Install Python requirements (if any)
-RUN pip install -r requirements.txt || true
-
-# Install zc.buildout and bootstrap the project
-RUN pip install zc.buildout \
-    && buildout init \
-    && buildout bootstrap --buildout-version=2.13.3 --setuptools-version=57.5.0 \
+# Install pip and required packages
+RUN pip install --upgrade pip \
+    && pip install -r requirements.rxt \
+    && buildout bootstrap --buildout-version=2.13.3 --setuptools-version=44.1.1 \
     && buildout
 
-# Copy the rest of the project
+# Copy rest of the project
 COPY . .
 
-# Expose default Zope port
+# Expose Zope/SENAITE default port
 EXPOSE 8080
 
-# Run Plone/SENAITE in foreground
+# Default command to run Plone/SENAITE in foreground
 CMD ["bin/instance", "fg"]
