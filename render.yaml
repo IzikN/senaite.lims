@@ -12,4 +12,4 @@ services:
       - key: PORT
         value: 10000
       - key: PYTHON_VERSION
-        value: 3.8.12  # Updated to a specific patch version
+        value: 3.8.12  # Compatible with senaite.lims and Plone 5.2
