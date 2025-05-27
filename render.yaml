@@ -2,14 +2,8 @@ services:
   - type: web
     name: senaite-lims
     env: python
-    plan: free  # Upgrade to paid for persistent storage
-    buildCommand: |
-      python3 -m venv venv
-      ./venv/bin/pip install -r requirements.txt
-      ./venv/bin/buildout
-    startCommand: ./venv/bin/gunicorn --workers=2 --bind=0.0.0.0:10000 "config.wsgi:application"
-    envVars:
-      - key: PORT
-        value: 10000
-      - key: PYTHON_VERSION
-        value: 3.8.12  # Compatible with senaite.lims and Plone 5.2
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: ./bin/instance fg
+    healthCheckPath: /
+    healthCheckTimeoutSeconds: 120
