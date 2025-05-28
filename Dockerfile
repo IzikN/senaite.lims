@@ -33,7 +33,7 @@ COPY requirements.txt buildout.cfg ./
 
 # Install pip and required packages
 RUN pip install --upgrade pip \
-    && pip install -r requirements.rxt \
+    && pip install -r requirements.txt \
     && buildout bootstrap --buildout-version=2.13.3 --setuptools-version=44.1.1 \
     && buildout
 
