@@ -33,10 +33,10 @@ COPY requirements.txt buildout.cfg ./
 
 # Install pip and required packages
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt \
-    && buildout bootstrap --buildout-version=2.13.3 --setuptools-version=44.1.1 \
+    && pip install setuptools==58.5.3 wheel==0.37.1 zc.buildout==2.13.3 \
+    && buildout bootstrap \
     && buildout
-
+    
 # Copy rest of the project
 COPY . .
 
