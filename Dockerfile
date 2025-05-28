@@ -28,17 +28,14 @@ RUN apt-get update && apt-get install -y \
 RUN python3 -m venv venv
 ENV PATH="/app/venv/bin:$PATH"
 
-# Copy buildout config and requirements
-COPY requirements.txt buildout.cfg ./
+# 🔁 Copy entire project before running buildout
+COPY . .
 
-# Install pip and required packages
+# Install pip and required Python packages
 RUN pip install --upgrade pip \
     && pip install setuptools==58.5.3 wheel==0.37.1 zc.buildout==2.13.3 \
     && buildout bootstrap \
     && buildout
-    
-# Copy rest of the project
-COPY . .
 
 # Expose Zope/SENAITE default port
 EXPOSE 8080
